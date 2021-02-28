@@ -6,6 +6,8 @@ var Stats = function () {
 
 	var mode = 0;
 
+	var fps = 0;
+
 	var container = document.createElement( 'div' );
 	container.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000';
 	container.addEventListener( 'click', function ( event ) {
@@ -75,8 +77,8 @@ var Stats = function () {
 			msPanel.update( time - beginTime, 200 );
 
 			if ( time >= prevTime + 1000 ) {
-
-				fpsPanel.update( ( frames * 1000 ) / ( time - prevTime ), 100 );
+				fps = ( frames * 1000 ) / ( time - prevTime );
+				fpsPanel.update( fps, 100 );
 
 				prevTime = time;
 				frames = 0;
@@ -92,6 +94,10 @@ var Stats = function () {
 
 			return time;
 
+		},
+
+		getFPS: function () {
+			return fps
 		},
 
 		update: function () {
